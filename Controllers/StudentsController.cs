@@ -21,14 +21,35 @@ namespace BookListMVC.Controllers
             _db = db;
         }
 
+       
+       // GET: Students
+        
         public async Task <IActionResult> Index()
         {
             return View(await _db.Students.ToListAsync());
         }
 
+        
+        // GET: Students/Create
         public IActionResult Create()
         {
             return View();
         }
+
+        //POST: Students/Create
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Students.Add(student);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(student);
+        }
+
     }
 }
