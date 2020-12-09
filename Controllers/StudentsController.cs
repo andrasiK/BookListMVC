@@ -25,5 +25,10 @@ namespace BookListMVC.Controllers
         {
             return View(await _db.Students.ToListAsync());
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
