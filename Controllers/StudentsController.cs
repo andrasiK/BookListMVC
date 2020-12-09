@@ -51,5 +51,31 @@ namespace BookListMVC.Controllers
             return View(student);
         }
 
+        //GET Students/Delete
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id== null)
+            {
+                return NotFound();
+            }
+
+            var student = await _db.Students.FirstOrDefaultAsync(m => m.ID == id);
+                if (student == null)
+                { 
+                 return NotFound();
+                }
+            return View(student);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var studentFromDb = await _db.Students.FindAsync(id);
+            _db.Students.Remove(studentFromDb);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
     }
 }

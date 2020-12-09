@@ -32,17 +32,17 @@
         {
         <tr>
             <td>
-                @Html.DisplayNameFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayNameFor(modelItem => item.Age)
+                @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
-                @Html.DisplayNameFor(modelItem => item.School)
+                @Html.DisplayFor(modelItem => item.School)
             </td>
             <td>
                 <a>"Edit"</a>
-                <a>"Delete"</a>
+                <a asp-action="Delete" asp-route-id="@item.ID">"Delete"</a>
             </td>
         </tr>
         }
