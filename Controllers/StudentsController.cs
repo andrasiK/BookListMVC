@@ -68,6 +68,7 @@ namespace BookListMVC.Controllers
             return View(student);
         }
 
+        //POST: Students/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
@@ -77,5 +78,33 @@ namespace BookListMVC.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+
+
+        //GET: Students/Edit
+        public async Task<IActionResult> Edit(int id)
+        {
+            var student = await _db.Students.FirstOrDefaultAsync(u => u.ID == id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);  
+        }
+
+        //POST: Students/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit()
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Update(Student);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(Student);
+        }
+            
     }
 }
